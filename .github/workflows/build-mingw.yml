@@ -54,7 +54,7 @@ jobs:
             type .\bootstrap.bat &&^
             .\bootstrap.bat gcc &&^
             .\b2 --help &&^
-            .\b2.exe install --build-dir=tmp --prefix=. variant=release link=static runtime-link=static threading=multi address-model=64 -j4 toolset=gcc stage
+            .\b2.exe --build-dir=tmp --prefix=. variant=release link=static runtime-link=static threading=multi address-model=64 -j4 toolset=gcc install
             
       - name: Copy include directories
         working-directory: boost
