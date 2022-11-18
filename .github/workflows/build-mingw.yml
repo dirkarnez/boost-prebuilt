@@ -46,6 +46,7 @@ jobs:
         shell: cmd
         run: |
             set PATH=^
+            C:\Windows\System32;^
             ${{ github.workspace }}\PortableGit-2.38.1-64-bit;^
             ${{ github.workspace }}\PortableGit-2.38.1-64-bit\bin;^
             ${{ github.workspace }}\python-3.10.8-amd64-portable;^
