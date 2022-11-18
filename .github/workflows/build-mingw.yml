@@ -40,6 +40,7 @@ jobs:
         shell: cmd
         working-directory: boost
         
+        #  ${{ github.workspace }}\PortableGit-2.38.1-64-bit\usr\bin\sed.exe  -i "s/^call.*build.bat/call \.\\\build.bat mingw/g" .\bootstrap.bat &&^
       - name: set PATH, check mingw version, cmake generate, build and install
         shell: cmd
         run: |
@@ -51,8 +52,7 @@ jobs:
             ${{ github.workspace }}\mingw64\bin;^
             ${{ github.workspace }}\cmake-3.24.0-windows-x86_64\bin;^
             gcc --version &&^
-            cd boost &&^
-            ${{ github.workspace }}\PortableGit-2.38.1-64-bit\usr\bin\sed.exe  -i "s/^call.*build.bat/call \.\\\build.bat mingw/g" .\bootstrap.bat &&^
+            cd boost &&^ 
             type .\bootstrap.bat &&^
             .\bootstrap.bat mingw &&^
             .\b2 --help &&^
