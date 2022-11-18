@@ -31,10 +31,6 @@ jobs:
         shell: cmd
         run:  cd /d ${{ github.workspace }} && curl https://github.com/2641797006/c/blob/master/GCC-zip/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z?raw=true -L --output x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z && dir && 7z.exe x x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
         
-      - name: curl cmake-3.24.0-windows-x86_64.zip
-        shell: cmd
-        run: cd /d ${{ github.workspace }} && curl https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0-windows-x86_64.zip -L --output cmake-3.24.0-windows-x86_64.zip && dir && 7z.exe x cmake-3.24.0-windows-x86_64.zip
-        
       - name: Delete .git windows
         run: RD /S /Q .git
         shell: cmd
@@ -50,15 +46,15 @@ jobs:
             ${{ github.workspace }}\PortableGit-2.38.1-64-bit;^
             ${{ github.workspace }}\PortableGit-2.38.1-64-bit\bin;^
             ${{ github.workspace }}\python-3.10.8-amd64-portable;^
+            ${{ github.workspace }}\python-3.10.8-amd64-portable\Scripts;^
             ${{ github.workspace }}\mingw64;^
-            ${{ github.workspace }}\mingw64\bin;^
-            ${{ github.workspace }}\cmake-3.24.0-windows-x86_64\bin;
+            ${{ github.workspace }}\mingw64\bin;
             gcc --version &&^
             cd boost &&^
             type .\bootstrap.bat &&^
             .\bootstrap.bat gcc &&^
             .\b2 --help &&^
-            .\b2.exe install --build-dir=tmp --prefix=. variant=release runtime-link=static address-model=64 -j4 toolset=gcc stage
+            .\b2.exe install --build-dir=tmp --prefix=. variant=release link=static runtime-link=static threading=multi address-model=64 -j4 toolset=gcc stage
             
       - name: Copy include directories
         working-directory: boost
