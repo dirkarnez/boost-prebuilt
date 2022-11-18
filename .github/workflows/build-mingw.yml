@@ -56,7 +56,7 @@ jobs:
             gcc --version &&^
             cd boost &&^
             type .\bootstrap.bat &&^
-            .\bootstrap.bat mingw &&^
+            .\bootstrap.bat gcc &&^
             .\b2 --help &&^
             .\b2.exe install --build-dir=tmp --prefix=. variant=release runtime-link=static address-model=64 -j4 toolset=gcc stage
             
