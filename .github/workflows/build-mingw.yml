@@ -15,10 +15,16 @@ jobs:
       tagName: boost-1.68.0
       mingwTargetZip: boost-${{ github.ref_name }}-x86_64-posix-seh-rev0-8.1.0.zip
     steps:
-      - name: git clone
+#      - name: git clone
+#        shell: cmd
+#        run: git clone --recursive https://github.com/boostorg/boost.git && cd boost && git checkout -f ${{ env.tagName }} && git submodule update --init --recursive
+ 
+      - name: curl boost
         shell: cmd
-        run: git clone --recursive https://github.com/boostorg/boost.git && cd boost && git checkout -f ${{ env.tagName }} && git submodule update --init --recursive
-        
+        run: |
+          curl https://boostorg.jfrog.io/artifactory/main/release/1.68.0/source/boost_1_68_0.zip -L --output boost_1_68_0.zip &&^
+           7z.exe x boost_1_68_0.zip
+           
       - name: curl PortableGit-2.38.1-64-bit.7z.exe
         shell: cmd
         run:  cd /d ${{ github.workspace }} && curl https://github.com/git-for-windows/git/releases/download/v2.38.1.windows.1/PortableGit-2.38.1-64-bit.7z.exe -L --output PortableGit-2.38.1-64-bit.7z.exe && dir && 7z.exe x PortableGit-2.38.1-64-bit.7z.exe -o"${{ github.workspace }}\PortableGit-2.38.1-64-bit"
@@ -50,11 +56,11 @@ jobs:
             ${{ github.workspace }}\mingw64;^
             ${{ github.workspace }}\mingw64\bin;
             gcc --version &&^
-            cd boost &&^
+            cd boost_1_68_0 &&^
             type .\bootstrap.bat &&^
             .\bootstrap.bat gcc &&^
             .\b2 --help &&^
-            .\b2.exe --build-dir=tmp --prefix=. variant=release link=static runtime-link=static threading=multi address-model=64 -j4 toolset=gcc install
+            .\b2.exe install --build-dir=tmp --prefix=. variant=release link=static runtime-link=static threading=multi address-model=64 -j4 toolset=gcc stage
             
       - name: Copy include directories
         working-directory: boost
