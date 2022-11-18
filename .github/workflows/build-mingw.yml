@@ -23,7 +23,7 @@ jobs:
         shell: cmd
         run: |
           curl https://boostorg.jfrog.io/artifactory/main/release/1.68.0/source/boost_1_68_0.zip -L --output boost_1_68_0.zip &&^
-           7z.exe x boost_1_68_0.zip
+          7z.exe x boost_1_68_0.zip
            
       - name: curl PortableGit-2.38.1-64-bit.7z.exe
         shell: cmd
