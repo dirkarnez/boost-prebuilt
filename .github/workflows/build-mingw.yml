@@ -54,21 +54,21 @@ jobs:
       - name: set PATH, check mingw version, cmake generate, build and install
         shell: cmd
         run: |
-            set PATH=^
-            C:\Windows\System32;^
-            ${{ github.workspace }}\PortableGit-2.38.1-64-bit;^
-            ${{ github.workspace }}\PortableGit-2.38.1-64-bit\bin;^
-            ${{ github.workspace }}\python-3.10.8-amd64-portable;^
-            ${{ github.workspace }}\python-3.10.8-amd64-portable\Scripts;^
-            ${{ github.workspace }}\mingw64;^
-            ${{ github.workspace }}\mingw64\bin;
-            gcc --version &&^
-            cd boost &&^
-            type .\bootstrap.bat &&^
-            .\bootstrap.bat gcc &&^
-            .\b2 --help &&^
-            .\b2.exe install --without-python --build-dir=tmp --prefix=. variant=release link=static runtime-link=static threading=multi address-model=64 -j4 toolset=gcc stage
-            
+          set PATH=^
+          C:\Windows\System32;^
+          ${{ github.workspace }}\PortableGit-2.38.1-64-bit;^
+          ${{ github.workspace }}\PortableGit-2.38.1-64-bit\bin;^
+          ${{ github.workspace }}\python-3.10.8-amd64-portable;^
+          ${{ github.workspace }}\python-3.10.8-amd64-portable\Scripts;^
+          ${{ github.workspace }}\mingw64;^
+          ${{ github.workspace }}\mingw64\bin;
+          gcc --version &&^
+          cd boost &&^
+          type .\bootstrap.bat &&^
+          .\bootstrap.bat mingw &&^
+          .\b2 --help &&^
+          .\b2.exe install --without-python --build-dir=tmp --prefix=. variant=release link=static runtime-link=static threading=multi address-model=64 -j4 toolset=gcc stage
+          
       - name: Copy include directories
         working-directory: boost
         shell: bash
