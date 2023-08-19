@@ -12,8 +12,8 @@ jobs:
     runs-on: windows-2019
     env:
       libraryName: boost
-      tagName: boost-1.68.0
-      mingwTargetZip: boost-${{ github.ref_name }}-x86_64-posix-seh-rev0-8.1.0.zip
+      tagName: UNUSED
+      mingwTargetZip: boost-${{ github.ref_name }}-mingw64-x86_64-posix-seh-rev0-8.1.0.zip
     steps:
 #      - name: git clone
 #        shell: cmd
@@ -22,8 +22,8 @@ jobs:
       - name: curl boost
         shell: cmd
         run: |
-          curl https://boostorg.jfrog.io/artifactory/main/release/1.68.0/source/boost_1_68_0.zip -L --output boost_1_68_0.zip &&^
-          7z.exe x boost_1_68_0.zip
+          curl https://boostorg.jfrog.io/artifactory/main/release/1.83.0/source/boost_1_83_0.zip -L --output boost_1_83_0.zip &&^
+          7z.exe x boost_1_83_0.zip
            
       - name: curl PortableGit-2.38.1-64-bit.7z.exe
         shell: cmd
@@ -38,17 +38,18 @@ jobs:
       - name: curl x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
         shell: cmd
         run: |
-          curl https://github.com/2641797006/c/blob/master/GCC-zip/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z?raw=true -L --output x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z && dir && 7z.exe x x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
-        
+          curl https://github.com/dirkarnez/cpp-tools/raw/main/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z -L -O -J &&^
+          7z.exe x x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
+          
 #       - name: Delete .git windows
 #         run: RD /S /Q .git
 #         shell: cmd
 #         working-directory: boost
         
         #  ${{ github.workspace }}\PortableGit-2.38.1-64-bit\usr\bin\sed.exe  -i "s/^call.*build.bat/call \.\\\build.bat mingw/g" .\bootstrap.bat &&^
-      - name: rename boost_1_68_0 to boost
+      - name: rename boost_version to boost
         shell: cmd
-        run: rename boost_1_68_0 boost
+        run: rename boost_1_83_0 boost
         
       - name: set PATH, check mingw version, cmake generate, build and install
         shell: cmd
