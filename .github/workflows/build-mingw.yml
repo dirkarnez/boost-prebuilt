@@ -22,9 +22,13 @@ jobs:
       - name: curl boost
         shell: cmd
         run: |
-          curl https://boostorg.jfrog.io/artifactory/main/release/1.83.0/source/boost_1_83_0.zip -L --output boost_1_83_0.zip &&^
-          7z.exe x boost_1_83_0.zip
-           
+          curl https://boostorg.jfrog.io/artifactory/main/release/1.72.0/source/boost_1_72_0.zip -L --output boost.zip &&^
+          7z.exe x boost.zip
+
+      - name: rename boost_version to boost
+        shell: cmd
+        run: rename boost_1_72_0 boost
+        
       - name: curl PortableGit-2.38.1-64-bit.7z.exe
         shell: cmd
         run: |
@@ -47,9 +51,6 @@ jobs:
 #         working-directory: boost
         
         #  ${{ github.workspace }}\PortableGit-2.38.1-64-bit\usr\bin\sed.exe  -i "s/^call.*build.bat/call \.\\\build.bat mingw/g" .\bootstrap.bat &&^
-      - name: rename boost_version to boost
-        shell: cmd
-        run: rename boost_1_83_0 boost
         
       - name: set PATH, check mingw version, cmake generate, build and install
         shell: cmd
