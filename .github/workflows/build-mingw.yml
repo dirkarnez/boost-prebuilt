@@ -9,6 +9,17 @@ on:
 jobs:
   build:
     name: Create Release
+    strategy:
+      matrix:
+        compiler:
+        - {
+            name: "x86_64-8.1.0-release-posix-seh-rt_v6-rev0",
+            url: "https://github.com/dirkarnez/cpp-tools/raw/main/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z"
+          }
+        - {
+            name: "winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1",
+            url: "https://github.com/brechtsanders/winlibs_mingw/releases/download/11.2.0-12.0.1-9.0.0-r1/winlibs-x86_64-posix-seh-gcc-11.2.0-mingw-w64-9.0.0-r1.zip"
+          }
     runs-on: windows-latest
     env:
       libraryName: boost
@@ -22,12 +33,12 @@ jobs:
       - name: curl boost
         shell: cmd
         run: |
-          curl https://boostorg.jfrog.io/artifactory/main/release/1.72.0/source/boost_1_72_0.zip -L --output boost.zip &&^
+          curl https://archives.boost.io/release/1.85.0/source/boost_1_85_0.zip -L --output boost.zip &&^
           7z.exe x boost.zip
 
       - name: rename boost_version to boost
         shell: cmd
-        run: rename boost_1_72_0 boost
+        run: rename boost_1_85_0 boost
         
       - name: curl PortableGit-2.38.1-64-bit.7z.exe
         shell: cmd
